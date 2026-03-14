@@ -103,6 +103,7 @@ function buildPrompt({
     "Return valid JSON only using this shape:",
     '{"replies":[{"title":"Short label","reply":"Full reply text"}]}',
     "Requirements:",
+    "- Reply in the SAME LANGUAGE as the review text. If the review is in Japanese, reply in Japanese. If in English, reply in English.",
     "- Replies should feel distinct from each other, not slight rephrasings.",
     "- Keep each reply around 60 to 120 words.",
     "- Match the requested tone.",
