@@ -35,13 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Add auth page
-  entries.push({
-    url: `${baseUrl}/auth`,
-    lastModified,
-    changeFrequency: "monthly",
-    priority: 0.6,
-  });
+  // Auth page excluded from sitemap (noindex, Supabase not configured yet)
 
   return entries;
 }

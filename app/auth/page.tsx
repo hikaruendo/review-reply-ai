@@ -11,7 +11,11 @@ import { getCurrentUser } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 
 export const metadata: Metadata = {
-  title: "Sign in"
+  title: "Sign in",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 type AuthPageProps = {
