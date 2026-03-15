@@ -110,7 +110,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     stats: {
       repliesCount: "種類の返信案を毎回生成",
-      freeGenerations: "回/月まで無料で生成可能",
+      freeGenerations: "まで無料で生成可能",
       priceLabel: "月額Proプラン",
     },
     features: {

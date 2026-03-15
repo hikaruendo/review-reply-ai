@@ -62,7 +62,9 @@ export default async function HomePage({ params }: Props) {
                 </p>
               </div>
               <div className="card-surface p-4">
-                <p className="text-3xl font-semibold text-ink">{GUEST_GENERATION_LIMIT}/mo</p>
+                <p className="text-3xl font-semibold text-ink">
+                  {lang === "ja" ? `${GUEST_GENERATION_LIMIT}回/月` : `${GUEST_GENERATION_LIMIT}/mo`}
+                </p>
                 <p className="mt-1 text-sm text-slate-600">
                   {dict.stats.freeGenerations}
                 </p>
