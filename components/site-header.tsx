@@ -1,17 +1,21 @@
 import Link from "next/link";
 
 import { signOutAction } from "@/app/auth/actions";
+import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 type SiteHeaderProps = {
   authConfigured: boolean;
   userEmail?: string | null;
+  lang: Locale;
 };
 
-export function SiteHeader({ authConfigured, userEmail }: SiteHeaderProps) {
+export function SiteHeader({ authConfigured, userEmail, lang }: SiteHeaderProps) {
+  const dict = getDictionary(lang);
+
   return (
     <header className="section-shell pt-6">
       <div className="card-surface flex items-center justify-between gap-4 px-5 py-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href={`/${lang}`} className="flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-ink text-sm font-semibold text-peach">
             AI
           </span>
@@ -20,17 +24,17 @@ export function SiteHeader({ authConfigured, userEmail }: SiteHeaderProps) {
               Review Reply
             </div>
             <div className="text-base font-semibold text-ink">
-              Generator for local businesses
+              {lang === "ja" ? "地域ビジネス向けジェネレーター" : "Generator for local businesses"}
             </div>
           </div>
         </Link>
 
         <nav className="flex items-center gap-3">
           <Link
-            href="/#pricing"
+            href={`/${lang}#pricing`}
             className="hidden text-sm font-medium text-slate-600 transition hover:text-ink sm:inline-flex"
           >
-            Pricing
+            {dict.header.pricingLink}
           </Link>
 
           {userEmail ? (
@@ -43,7 +47,7 @@ export function SiteHeader({ authConfigured, userEmail }: SiteHeaderProps) {
                   type="submit"
                   className="inline-flex h-11 items-center justify-center rounded-full border border-slate-200 px-4 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-white"
                 >
-                  Sign out
+                  {dict.header.signOut}
                 </button>
               </form>
             </div>
@@ -52,7 +56,7 @@ export function SiteHeader({ authConfigured, userEmail }: SiteHeaderProps) {
               href="/auth"
               className="inline-flex h-11 items-center justify-center rounded-full bg-ink px-5 text-sm font-semibold text-white transition hover:bg-slate-900"
             >
-              {authConfigured ? "Sign in" : "Auth setup"}
+              {authConfigured ? dict.header.signIn : dict.header.authSetup}
             </Link>
           )}
         </nav>

@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 import { PricingCard } from "@/components/pricing-card";
+import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
-export function PricingSection() {
+type PricingSectionProps = {
+  lang: Locale;
+};
+
+export function PricingSection({ lang }: PricingSectionProps) {
   const [loading, setLoading] = useState(false);
+  const dict = getDictionary(lang);
 
   async function handleCheckout() {
     setLoading(true);
@@ -18,10 +24,10 @@ export function PricingSection() {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || "Checkout failed.");
+        alert(data.error || (lang === "ja" ? "決済に失敗しました。" : "Checkout failed."));
       }
     } catch {
-      alert("Something went wrong. Please try again.");
+      alert(lang === "ja" ? "エラーが発生しました。もう一度お試しください。" : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -30,22 +36,22 @@ export function PricingSection() {
   return (
     <div className="grid gap-5 md:grid-cols-2">
       <PricingCard
-        name="Free"
+        name={dict.pricing.freeName}
         price="5/mo"
-        description="Perfect for solo operators testing the workflow in one browser with no signup required."
-        ctaLabel="Try guest mode"
-        note="Guest usage resets monthly in localStorage."
+        description={dict.pricing.freeDescription}
+        ctaLabel={dict.pricing.freeCta}
+        note={dict.pricing.freeNote}
         onClick={() => {
           document.getElementById("generator")?.scrollIntoView({ behavior: "smooth" });
         }}
       />
       <PricingCard
-        name="Pro"
+        name={dict.pricing.proName}
         price="$19/mo"
-        description="Unlimited AI-generated review replies for your team. Saved history, auth, and priority support."
-        ctaLabel={loading ? "Redirecting..." : "Subscribe — $19/mo"}
+        description={dict.pricing.proDescription}
+        ctaLabel={loading ? (lang === "ja" ? "リダイレクト中..." : "Redirecting...") : dict.pricing.proCta}
         featured
-        note="Secure checkout via Stripe."
+        note={dict.pricing.proNote}
         onClick={handleCheckout}
       />
     </div>

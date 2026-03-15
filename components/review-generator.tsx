@@ -13,9 +13,11 @@ import {
   type Industry,
   type ReplyTone
 } from "@/lib/constants";
+import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 type ReviewGeneratorProps = {
   isSignedIn: boolean;
+  lang: Locale;
 };
 
 type GuestUsageState = {
@@ -81,7 +83,8 @@ function incrementGuestUsage() {
   return updated.count;
 }
 
-export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
+export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
+  const dict = getDictionary(lang);
   const [reviewText, setReviewText] = useState("");
   const [industry, setIndustry] = useState<Industry>("Dental");
   const [starRating, setStarRating] = useState(5);
@@ -108,14 +111,12 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
     event.preventDefault();
 
     if (!reviewText.trim()) {
-      setError("Paste a customer review before generating replies.");
+      setError(dict.errors.emptyReview);
       return;
     }
 
     if (limitReached) {
-      setError(
-        "You have used your 5 free guest generations for this month. Create an account to keep going."
-      );
+      setError(dict.errors.limitReached);
       return;
     }
 
@@ -142,7 +143,7 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
       };
 
       if (!response.ok || !data.replies) {
-        throw new Error(data.error || "Unable to generate replies right now.");
+        throw new Error(data.error || dict.errors.generationFailed);
       }
 
       setReplies(data.replies);
@@ -154,7 +155,7 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
       setError(
         submissionError instanceof Error
           ? submissionError.message
-          : "Something went wrong while generating replies."
+          : dict.errors.generationFailed
       );
     } finally {
       setIsLoading(false);
@@ -169,14 +170,13 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
       >
         <div className="space-y-2">
           <div className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-900">
-            Phase 0 MVP
+            {dict.generator.badge}
           </div>
           <h2 className="text-2xl font-semibold text-ink">
-            Turn one review into three polished reply options
+            {dict.generator.title}
           </h2>
           <p className="text-sm leading-6 text-slate-600">
-            Built for dental clinics first, and ready for restaurants, salons,
-            auto repair shops, and other local service businesses.
+            {dict.generator.description}
           </p>
         </div>
 
@@ -185,13 +185,13 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
             htmlFor="review-text"
             className="text-sm font-semibold text-slate-700"
           >
-            Review text
+            {dict.generator.reviewTextLabel}
           </label>
           <textarea
             id="review-text"
             value={reviewText}
             onChange={(event) => setReviewText(event.target.value)}
-            placeholder="Paste the customer review here..."
+            placeholder={dict.generator.reviewTextPlaceholder}
             rows={7}
             className="min-h-[180px] w-full rounded-3xl border border-slate-200 bg-white px-4 py-4 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-coral"
           />
@@ -203,7 +203,7 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
               htmlFor="industry"
               className="text-sm font-semibold text-slate-700"
             >
-              Industry
+              {dict.generator.industryLabel}
             </label>
             <select
               id="industry"
@@ -221,7 +221,7 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
 
           <div className="space-y-2">
             <label htmlFor="tone" className="text-sm font-semibold text-slate-700">
-              Tone
+              {dict.generator.toneLabel}
             </label>
             <select
               id="tone"
@@ -239,7 +239,7 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-semibold text-slate-700">Star rating</p>
+          <p className="text-sm font-semibold text-slate-700">{dict.generator.starRatingLabel}</p>
           <div className="grid grid-cols-5 gap-2">
             {[1, 2, 3, 4, 5].map((value) => (
               <button
@@ -260,11 +260,13 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
 
         <div className="rounded-3xl border border-dashed border-slate-200 bg-slate-50/70 p-4 text-sm text-slate-600">
           {isSignedIn ? (
-            <p>Signed-in generations can be saved to Supabase when envs are configured.</p>
+            <p>{dict.generator.signedInNote}</p>
           ) : (
             <p>
-              {remainingGuestGenerations} of {GUEST_GENERATION_LIMIT} free guest
-              generations left this month in this browser.
+              {dict.generator.guestUsageNote.replace(
+                "{{count}}",
+                String(remainingGuestGenerations)
+              )}
             </p>
           )}
         </div>
@@ -280,23 +282,22 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
           disabled={isLoading}
           className="inline-flex h-14 w-full items-center justify-center rounded-full bg-ink px-6 text-sm font-semibold text-white transition hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {isLoading ? "Generating replies..." : "Generate 3 replies"}
+          {isLoading ? dict.generator.generatingButton : dict.generator.generateButton}
         </button>
 
         {limitReached ? (
           <div className="rounded-3xl border border-coral/20 bg-coral/5 p-5">
             <p className="text-sm font-semibold text-ink">
-              Guest limit reached
+              {dict.generator.guestLimitTitle}
             </p>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              Create an account to move beyond the browser-based free limit and
-              unlock saved generations.
+              {dict.generator.guestLimitDescription}
             </p>
             <Link
               href="/auth"
               className="mt-4 inline-flex rounded-full bg-coral px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#dd5b41]"
             >
-              Create account
+              {dict.generator.createAccountButton}
             </Link>
           </div>
         ) : null}
@@ -306,10 +307,10 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Generated replies
+              {dict.generator.generatedRepliesLabel}
             </p>
             <h3 className="mt-2 text-2xl font-semibold text-ink">
-              Ready-to-post response options
+              {dict.generator.generatedRepliesTitle}
             </h3>
           </div>
           <div className="rounded-full bg-mint px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-900">
@@ -335,11 +336,10 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
           {!isLoading && replies.length === 0 ? (
             <div className="flex flex-1 flex-col justify-center rounded-3xl border border-dashed border-slate-200 bg-white/60 px-6 py-10 text-center">
               <p className="text-lg font-semibold text-ink">
-                Your three reply options will appear here.
+                {dict.generator.emptyStateTitle}
               </p>
               <p className="mt-3 text-sm leading-6 text-slate-600">
-                Paste a Google review, pick the rating and tone, then generate.
-                Copy your favorite version with one click.
+                {dict.generator.emptyStateDescription}
               </p>
             </div>
           ) : null}
@@ -353,7 +353,7 @@ export function ReviewGenerator({ isSignedIn }: ReviewGeneratorProps) {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
-                        Variant {index + 1}
+                        {lang === "ja" ? `バリエーション ${index + 1}` : `Variant ${index + 1}`}
                       </p>
                       <h4 className="mt-2 text-lg font-semibold text-ink">
                         {reply.title}

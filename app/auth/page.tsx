@@ -24,7 +24,7 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
   const user = await getCurrentUser();
 
   if (user) {
-    redirect("/");
+    redirect("/ja");
   }
 
   const authConfigured = isSupabaseConfigured();
@@ -66,7 +66,7 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
             </div>
 
             <Link
-              href="/"
+              href="/ja"
               className="mt-8 inline-flex text-sm font-semibold text-slate-600 transition hover:text-ink"
             >
               ← Back to generator
