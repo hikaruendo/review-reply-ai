@@ -123,7 +123,7 @@ export function Footer({ lang }: FooterProps) {
       {/* Language Switcher */}
       <div className="mt-8 pt-8 border-t border-slate-200 flex items-center justify-between">
         <p className="text-xs text-slate-500">
-          © 2025 kando1{lang === "ja" ? "合同会社" : " LLC"}. All rights reserved.
+          © 2026 kando1{lang === "ja" ? "合同会社" : " LLC"}. All rights reserved.
         </p>
         <div className="flex gap-3">
           <Link

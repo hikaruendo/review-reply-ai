@@ -15,6 +15,20 @@ import {
 } from "@/lib/constants";
 import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
+const INDUSTRY_LABELS: Record<Industry, Record<Locale, string>> = {
+  Dental: { ja: "歯科医院", en: "Dental" },
+  Restaurant: { ja: "レストラン", en: "Restaurant" },
+  Salon: { ja: "美容院・サロン", en: "Salon" },
+  "Auto Repair": { ja: "自動車整備", en: "Auto Repair" },
+  Other: { ja: "その他", en: "Other" },
+};
+
+const TONE_LABELS: Record<ReplyTone, Record<Locale, string>> = {
+  Professional: { ja: "プロフェッショナル", en: "Professional" },
+  Friendly: { ja: "フレンドリー", en: "Friendly" },
+  Empathetic: { ja: "共感的", en: "Empathetic" },
+};
+
 type ReviewGeneratorProps = {
   isSignedIn: boolean;
   lang: Locale;
@@ -213,7 +227,7 @@ export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
             >
               {INDUSTRIES.map((option) => (
                 <option key={option} value={option}>
-                  {option}
+                  {INDUSTRY_LABELS[option]?.[lang] ?? option}
                 </option>
               ))}
             </select>
@@ -231,7 +245,7 @@ export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
             >
               {TONES.map((option) => (
                 <option key={option} value={option}>
-                  {option}
+                  {TONE_LABELS[option]?.[lang] ?? option}
                 </option>
               ))}
             </select>

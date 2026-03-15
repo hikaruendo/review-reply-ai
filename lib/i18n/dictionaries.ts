@@ -109,9 +109,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaSecondary: "料金を見る",
     },
     stats: {
-      repliesCount: "件の異なる返信案を生成",
-      freeGenerations: "ヶ月あたり無料生成回数（ブラウザ保存）",
-      priceLabel: "月額プラン（予定）",
+      repliesCount: "種類の返信案を毎回生成",
+      freeGenerations: "回/月まで無料で生成可能",
+      priceLabel: "月額Proプラン",
     },
     features: {
       sampleWorkflow: "使い方の例",
@@ -182,7 +182,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       authSetup: "認証設定",
     },
     footer: {
-      copyright: "© 2025 kando1合同会社. All rights reserved.",
+      copyright: "© 2026 kando1合同会社. All rights reserved.",
       privacy: "プライバシーポリシー",
       terms: "利用規約",
       contact: "お問い合わせ",
@@ -280,7 +280,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       authSetup: "Auth setup",
     },
     footer: {
-      copyright: "© 2025 kando1 LLC. All rights reserved.",
+      copyright: "© 2026 kando1 LLC. All rights reserved.",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
       contact: "Contact",
