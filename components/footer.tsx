@@ -55,28 +55,28 @@ export function Footer({ lang }: FooterProps) {
               </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href={`/${lang}/privacy`}
                 className="text-sm text-slate-600 hover:text-ink transition"
               >
                 {dict.footer.privacy}
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href={`/${lang}/terms`}
                 className="text-sm text-slate-600 hover:text-ink transition"
               >
                 {dict.footer.terms}
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href={`/${lang}/contact`}
                 className="text-sm text-slate-600 hover:text-ink transition"
               >
                 {dict.footer.contact}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
