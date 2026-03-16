@@ -1,0 +1,88 @@
+<svg width="1500" height="500" viewBox="0 0 1500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-gradient" x1="42" y1="28" x2="1468" y2="488" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#16253A"/>
+      <stop offset="0.52" stop-color="#122033"/>
+      <stop offset="1" stop-color="#0A1220"/>
+    </linearGradient>
+    <radialGradient id="orb-gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1188 230) rotate(130.4) scale(328.7 309.4)">
+      <stop stop-color="#FFFDFC"/>
+      <stop offset="0.72" stop-color="#FFF2E2"/>
+      <stop offset="1" stop-color="#E9DCCB"/>
+    </radialGradient>
+    <linearGradient id="accent-line" x1="278" y1="84" x2="1240" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7D8B7"/>
+      <stop offset="0.45" stop-color="#F2684A"/>
+      <stop offset="1" stop-color="#D7EFE0"/>
+    </linearGradient>
+    <filter id="soft-blur" x="-40" y="-40" width="1580" height="580" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="26" result="effect1_foregroundBlur_0_1"/>
+    </filter>
+    <filter id="orb-shadow" x="778" y="-42" width="774" height="656" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="24"/>
+      <feGaussianBlur stdDeviation="30"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0196078 0 0 0 0 0.0470588 0 0 0 0 0.0941176 0 0 0 0.28 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect width="1500" height="500" fill="url(#bg-gradient)"/>
+
+  <g filter="url(#soft-blur)">
+    <circle cx="154" cy="92" r="118" fill="#F2684A" fill-opacity="0.14"/>
+    <circle cx="1386" cy="96" r="126" fill="#D7EFE0" fill-opacity="0.34"/>
+    <circle cx="1340" cy="426" r="138" fill="#F5EFE6" fill-opacity="0.08"/>
+    <circle cx="184" cy="446" r="126" fill="#F5EFE6" fill-opacity="0.05"/>
+  </g>
+
+  <path d="M210 368C370 286 522 242 700 242C890 242 1042 294 1268 406" stroke="#F5EFE6" stroke-opacity="0.12" stroke-width="1.5"/>
+  <path d="M274 400C434 316 576 282 736 282C888 282 1046 328 1196 396" stroke="#F5EFE6" stroke-opacity="0.08" stroke-width="1.5"/>
+  <path d="M936 76C1028 96 1110 148 1174 220" stroke="#F5EFE6" stroke-opacity="0.22" stroke-width="10" stroke-linecap="round"/>
+  <path d="M978 416C1084 404 1188 368 1276 294" stroke="#F2684A" stroke-opacity="0.72" stroke-width="10" stroke-linecap="round"/>
+  <ellipse cx="1086" cy="250" rx="298" ry="198" stroke="url(#accent-line)" stroke-opacity="0.24" stroke-width="2"/>
+  <ellipse cx="1086" cy="250" rx="264" ry="174" stroke="#F5EFE6" stroke-opacity="0.14" stroke-width="1.5"/>
+
+  <g transform="translate(314 128)">
+    <rect width="212" height="42" rx="21" fill="#FFF8EF" fill-opacity="0.12" stroke="#F5EFE6" stroke-opacity="0.18"/>
+    <text x="106" y="27" text-anchor="middle" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="16" font-weight="700" letter-spacing="3.2" fill="#F7D8B7">AI REVIEW REPLY</text>
+
+    <text x="0" y="108" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="68" font-weight="700" letter-spacing="-2.2" fill="#FFF8EF">Review replies, fast.</text>
+    <text x="0" y="156" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="30" font-weight="500" letter-spacing="-0.6" fill="#D9E4F0">Polished customer review responses</text>
+    <text x="0" y="194" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="30" font-weight="500" letter-spacing="-0.6" fill="#D9E4F0">for local businesses.</text>
+
+    <g transform="translate(0 236)">
+      <rect width="300" height="54" rx="27" fill="#F2684A"/>
+      <text x="150" y="34" text-anchor="middle" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="20" font-weight="700" letter-spacing="0.2" fill="#FFF8EF">Fast. Warm. Consistent.</text>
+    </g>
+  </g>
+
+  <g filter="url(#orb-shadow)">
+    <circle cx="1176" cy="248" r="190" fill="#0F1B2D"/>
+    <circle cx="1176" cy="248" r="176" fill="url(#orb-gradient)"/>
+  </g>
+
+  <g transform="translate(1152 232) rotate(-7)">
+    <path d="M-166 -106H120C160 -106 192 -74 192 -34V92C192 132 160 164 120 164H16L-58 238V164H-166C-206 164 -238 132 -238 92V-34C-238 -74 -206 -106 -166 -106Z" fill="#F2684A"/>
+    <path d="M-150 -88H118C148 -88 172 -64 172 -34V82C172 112 148 136 118 136H-2L-40 174V136H-150C-180 136 -204 112 -204 82V-34C-204 -64 -180 -88 -150 -88Z" fill="#F2684A"/>
+    <text x="-16" y="54" text-anchor="middle" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="172" font-weight="800" letter-spacing="-10" fill="#122033">AI</text>
+  </g>
+
+  <g transform="translate(1254 338) rotate(7)">
+    <path d="M-88 -58H90C122 -58 148 -32 148 0V58C148 90 122 116 90 116H14L-28 164V116H-88C-120 116 -146 90 -146 58V0C-146 -32 -120 -58 -88 -58Z" fill="#FFF8EF"/>
+    <circle cx="-26" cy="30" r="13" fill="#122033" fill-opacity="0.88"/>
+    <circle cx="10" cy="30" r="13" fill="#122033" fill-opacity="0.88"/>
+    <circle cx="46" cy="30" r="13" fill="#122033" fill-opacity="0.88"/>
+  </g>
+
+  <g transform="translate(1268 118)">
+    <path d="M0 -34L10 -10L34 0L10 10L0 34L-10 10L-34 0L-10 -10L0 -34Z" fill="#FFF8EF" fill-opacity="0.95"/>
+    <path d="M-74 22L-68 40L-50 46L-68 52L-74 70L-80 52L-98 46L-80 40L-74 22Z" fill="#D7EFE0" fill-opacity="0.92"/>
+  </g>
+
+  <rect x="0" y="442" width="1500" height="58" fill="url(#bg-gradient)" fill-opacity="0.46"/>
+</svg>

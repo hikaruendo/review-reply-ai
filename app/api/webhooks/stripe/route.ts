@@ -5,14 +5,18 @@ import { createClient } from "@supabase/supabase-js";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-06-20" as Stripe.LatestApiVersion,
-});
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2024-06-20" as Stripe.LatestApiVersion,
+  });
+}
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -21,6 +25,9 @@ export async function POST(request: Request) {
   if (!signature) {
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });
   }
+
+  const stripe = getStripe();
+  const supabase = getSupabase();
 
   let event: Stripe.Event;
 
