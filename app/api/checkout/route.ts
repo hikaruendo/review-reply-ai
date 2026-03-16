@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 export const runtime = "nodejs";
 export const maxDuration = 15;
 
-const PRICE_ID = "price_1TAjVMJjB9qblcuNrYbVFFAy";
+const PRICE_ID = process.env.STRIPE_PRICE_ID || "price_1TBRCQJeVHays79h20ZMwkyy";
 
 export async function POST(request: Request) {
   try {
