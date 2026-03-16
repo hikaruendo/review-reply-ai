@@ -31,6 +31,7 @@ const TONE_LABELS: Record<ReplyTone, Record<Locale, string>> = {
 
 type ReviewGeneratorProps = {
   isSignedIn: boolean;
+  userPlan?: "free" | "pro" | null;
   lang: Locale;
 };
 
@@ -97,7 +98,8 @@ function incrementGuestUsage() {
   return updated.count;
 }
 
-export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
+export function ReviewGenerator({ isSignedIn, userPlan, lang }: ReviewGeneratorProps) {
+  const isPro = userPlan === "pro";
   const dict = getDictionary(lang);
   const [reviewText, setReviewText] = useState("");
   const [industry, setIndustry] = useState<Industry>("Dental");
@@ -109,17 +111,17 @@ export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
   const [guestCount, setGuestCount] = useState(0);
 
   useEffect(() => {
-    if (isSignedIn) {
+    if (isSignedIn || isPro) {
       return;
     }
 
     setGuestCount(readGuestUsage().count);
-  }, [isSignedIn]);
+  }, [isSignedIn, isPro]);
 
-  const remainingGuestGenerations = isSignedIn
+  const remainingGuestGenerations = (isSignedIn || isPro)
     ? null
     : Math.max(0, GUEST_GENERATION_LIMIT - guestCount);
-  const limitReached = !isSignedIn && remainingGuestGenerations === 0;
+  const limitReached = !isSignedIn && !isPro && remainingGuestGenerations === 0;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -162,7 +164,7 @@ export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
 
       setReplies(data.replies);
 
-      if (!isSignedIn) {
+      if (!isSignedIn && !isPro) {
         setGuestCount(incrementGuestUsage());
       }
     } catch (submissionError) {
@@ -273,7 +275,9 @@ export function ReviewGenerator({ isSignedIn, lang }: ReviewGeneratorProps) {
         </div>
 
         <div className="rounded-3xl border border-dashed border-slate-200 bg-slate-50/70 p-4 text-sm text-slate-600">
-          {isSignedIn ? (
+          {isPro ? (
+            <p className="font-semibold text-emerald-700">{dict.generator.proNote}</p>
+          ) : isSignedIn ? (
             <p>{dict.generator.signedInNote}</p>
           ) : (
             <p>

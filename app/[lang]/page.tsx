@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CheckoutSuccessBanner } from "@/components/checkout-success-banner";
 import { PricingSection } from "@/components/pricing-section";
 import { ReviewGenerator } from "@/components/review-generator";
 import { SiteHeader } from "@/components/site-header";
@@ -8,21 +9,44 @@ import { GUEST_GENERATION_LIMIT } from "@/lib/constants";
 import { getDictionary, type Locale } from "@/lib/i18n/dictionaries";
 
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { getCurrentUser } from "@/lib/supabase/server";
+import { createServerSupabaseClient, getCurrentUser } from "@/lib/supabase/server";
 
 type Props = {
   params: { lang: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function HomePage({ params }: Props) {
+export default async function HomePage({ params, searchParams }: Props) {
   const lang = params.lang as Locale;
   const dict = getDictionary(lang);
   const user = await getCurrentUser();
   const authConfigured = isSupabaseConfigured();
 
+  // Fetch user plan from users table
+  let userPlan: "free" | "pro" | null = null;
+  if (user) {
+    const supabase = createServerSupabaseClient();
+    if (supabase) {
+      const { data } = await supabase
+        .from("users")
+        .select("plan")
+        .eq("id", user.id)
+        .single();
+      if (data?.plan === "pro" || data?.plan === "free") {
+        userPlan = data.plan;
+      }
+    }
+  }
+
+  const showCheckoutSuccess = searchParams?.checkout === "success";
+
   return (
     <main className="pb-16">
-      <SiteHeader authConfigured={authConfigured} userEmail={user?.email} lang={lang} />
+      <SiteHeader authConfigured={authConfigured} userEmail={user?.email} userPlan={userPlan} userId={user?.id ?? null} lang={lang} />
+
+      {showCheckoutSuccess && (
+        <CheckoutSuccessBanner message={dict.checkout.successMessage} />
+      )}
 
       <section className="section-shell pt-8 sm:pt-12">
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -125,7 +149,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       <section id="generator" className="section-shell pt-16">
-        <ReviewGenerator isSignedIn={Boolean(user)} lang={lang} />
+        <ReviewGenerator isSignedIn={Boolean(user)} userPlan={userPlan} lang={lang} />
       </section>
 
       <section className="section-shell pt-16">
@@ -181,7 +205,7 @@ export default async function HomePage({ params }: Props) {
           </p>
         </div>
 
-        <PricingSection lang={lang} />
+        <PricingSection lang={lang} userPlan={userPlan} userId={user?.id ?? null} />
       </section>
 
       <Footer lang={lang} />

@@ -6,11 +6,14 @@ import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 type PricingSectionProps = {
   lang: Locale;
+  userPlan?: "free" | "pro" | null;
+  userId?: string | null;
 };
 
-export function PricingSection({ lang }: PricingSectionProps) {
+export function PricingSection({ lang, userPlan, userId }: PricingSectionProps) {
   const [loading, setLoading] = useState(false);
   const dict = getDictionary(lang);
+  const isPro = userPlan === "pro";
 
   async function handleCheckout() {
     setLoading(true);
@@ -33,6 +36,26 @@ export function PricingSection({ lang }: PricingSectionProps) {
     }
   }
 
+  async function handleManageSubscription() {
+    if (!userId) return;
+    setLoading(true);
+    try {
+      const res = await fetch("/api/billing-portal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {
+      // Silently fail
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="grid gap-5 md:grid-cols-2">
       <PricingCard
@@ -49,10 +72,17 @@ export function PricingSection({ lang }: PricingSectionProps) {
         name={dict.pricing.proName}
         price="$19/mo"
         description={dict.pricing.proDescription}
-        ctaLabel={loading ? (lang === "ja" ? "リダイレクト中..." : "Redirecting...") : dict.pricing.proCta}
+        ctaLabel={
+          loading
+            ? (lang === "ja" ? "リダイレクト中..." : "Redirecting...")
+            : isPro
+              ? dict.pricing.manageSubscription
+              : dict.pricing.proCta
+        }
         featured
         note={dict.pricing.proNote}
-        onClick={handleCheckout}
+        badge={isPro ? dict.pricing.currentPlan : undefined}
+        onClick={isPro ? handleManageSubscription : handleCheckout}
       />
     </div>
   );

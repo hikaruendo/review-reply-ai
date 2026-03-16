@@ -1,15 +1,18 @@
 import Link from "next/link";
 
+import { ManageSubscriptionLink } from "@/components/manage-subscription-link";
 import { signOutAction } from "@/app/auth/actions";
 import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 type SiteHeaderProps = {
   authConfigured: boolean;
   userEmail?: string | null;
+  userPlan?: "free" | "pro" | null;
+  userId?: string | null;
   lang: Locale;
 };
 
-export function SiteHeader({ authConfigured, userEmail, lang }: SiteHeaderProps) {
+export function SiteHeader({ authConfigured, userEmail, userPlan, userId, lang }: SiteHeaderProps) {
   const dict = getDictionary(lang);
 
   return (
@@ -39,9 +42,17 @@ export function SiteHeader({ authConfigured, userEmail, lang }: SiteHeaderProps)
 
           {userEmail ? (
             <div className="flex items-center gap-3">
-              <span className="hidden text-sm text-slate-500 md:inline">
+              <span className="hidden items-center gap-2 text-sm text-slate-500 md:inline-flex">
                 {userEmail}
+                {userPlan === "pro" && (
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">
+                    {dict.header.proBadge}
+                  </span>
+                )}
               </span>
+              {userPlan === "pro" && userId && (
+                <ManageSubscriptionLink userId={userId} label={dict.header.manageSubscription} />
+              )}
               <form action={signOutAction}>
                 <button
                   type="submit"

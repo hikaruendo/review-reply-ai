@@ -50,6 +50,7 @@ export type Dictionary = {
     guestLimitTitle: string;
     guestLimitDescription: string;
     createAccountButton: string;
+    proNote: string;
   };
   // How it works
   howItWorks: {
@@ -74,6 +75,8 @@ export type Dictionary = {
     proDescription: string;
     proNote: string;
     proCta: string;
+    currentPlan: string;
+    manageSubscription: string;
   };
   // Header
   header: {
@@ -81,6 +84,12 @@ export type Dictionary = {
     signIn: string;
     signOut: string;
     authSetup: string;
+    proBadge: string;
+    manageSubscription: string;
+  };
+  // Checkout
+  checkout: {
+    successMessage: string;
   };
   // Footer
   footer: {
@@ -149,6 +158,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       guestLimitDescription:
         "アカウントを作成すると、ブラウザベースの無料制限を超えて、生成した返信を保存できます。",
       createAccountButton: "アカウントを作成",
+      proNote: "Proプラン: 無制限に生成可能",
     },
     howItWorks: {
       sectionLabel: "01",
@@ -174,12 +184,19 @@ export const dictionaries: Record<Locale, Dictionary> = {
       proDescription: "チームで無制限のAI生成口コミ返信。保存履歴、認証、優先サポート。",
       proNote: "Stripeによる安全な決済。",
       proCta: "登録 — $19/月",
+      currentPlan: "現在のプラン",
+      manageSubscription: "サブスク管理",
     },
     header: {
       pricingLink: "料金",
       signIn: "ログイン",
       signOut: "ログアウト",
       authSetup: "認証設定",
+      proBadge: "Pro",
+      manageSubscription: "サブスク管理",
+    },
+    checkout: {
+      successMessage: "🎉 Proプランへようこそ！無制限に返信を生成できます。",
     },
     footer: {
       copyright: "© 2026 kando1合同会社. All rights reserved.",
@@ -245,6 +262,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       guestLimitDescription:
         "Create an account to move beyond the browser-based free limit and unlock saved generations.",
       createAccountButton: "Create account",
+      proNote: "Pro plan: Unlimited generations",
     },
     howItWorks: {
       sectionLabel: "01",
@@ -272,12 +290,19 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "Unlimited AI-generated review replies for your team. Saved history, auth, and priority support.",
       proNote: "Secure checkout via Stripe.",
       proCta: "Subscribe — $19/mo",
+      currentPlan: "Current Plan",
+      manageSubscription: "Manage Subscription",
     },
     header: {
       pricingLink: "Pricing",
       signIn: "Sign in",
       signOut: "Sign out",
       authSetup: "Auth setup",
+      proBadge: "Pro",
+      manageSubscription: "Manage",
+    },
+    checkout: {
+      successMessage: "🎉 Welcome to Pro! Generate unlimited replies.",
     },
     footer: {
       copyright: "© 2026 kando1 LLC. All rights reserved.",

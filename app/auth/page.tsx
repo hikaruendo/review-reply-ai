@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import "@/app/globals.css";
+
 import {
   signInWithGoogleAction,
   signInWithPasswordAction,
@@ -35,6 +37,8 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
   const message = searchParams?.message;
 
   return (
+    <html lang="ja">
+    <body>
     <main className="min-h-screen">
       <div className="section-shell flex min-h-screen items-center py-12">
         <div className="grid w-full gap-6 lg:grid-cols-[0.95fr_1.05fr]">
@@ -176,5 +180,7 @@ export default async function AuthPage({ searchParams }: AuthPageProps) {
         </div>
       </div>
     </main>
+    </body>
+    </html>
   );
 }

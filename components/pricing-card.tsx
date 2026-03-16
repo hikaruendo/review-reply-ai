@@ -7,6 +7,7 @@ type PricingCardProps = {
   ctaLabel: string;
   featured?: boolean;
   note?: string;
+  badge?: string;
   onClick?: () => void;
 };
 
@@ -16,6 +17,7 @@ export function PricingCard({
   featured = false,
   name,
   note,
+  badge,
   onClick,
   price
 }: PricingCardProps) {
@@ -28,11 +30,18 @@ export function PricingCard({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-semibold text-ink">{name}</h3>
-          {featured ? (
-            <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-900">
-              Popular
-            </span>
-          ) : null}
+          <div className="flex items-center gap-2">
+            {badge ? (
+              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
+                {badge}
+              </span>
+            ) : null}
+            {featured && !badge ? (
+              <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-900">
+                Popular
+              </span>
+            ) : null}
+          </div>
         </div>
         <div className="text-4xl font-semibold text-ink">{price}</div>
         <p className="text-sm leading-6 text-slate-600">{description}</p>
