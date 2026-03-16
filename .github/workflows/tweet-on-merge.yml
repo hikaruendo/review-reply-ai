@@ -1,0 +1,87 @@
+name: Tweet on merge to main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    if: |
+      !startsWith(github.event.head_commit.message, 'chore') &&
+      !startsWith(github.event.head_commit.message, 'ci:')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Generate and post tweet
+        env:
+          X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET: ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.RRAI_X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.RRAI_X_ACCESS_TOKEN_SECRET }}
+        run: |
+          node -e "
+          const crypto = require('crypto');
+          const https = require('https');
+          const { execSync } = require('child_process');
+
+          const CK = process.env.X_CONSUMER_KEY;
+          const CS = process.env.X_CONSUMER_SECRET;
+          const at = process.env.X_ACCESS_TOKEN;
+          const ats = process.env.X_ACCESS_TOKEN_SECRET;
+
+          // Get commit info
+          const commitMsg = process.env.GITHUB_EVENT_HEAD_COMMIT_MESSAGE
+            || execSync('git log -1 --pretty=%s').toString().trim();
+          const shortMsg = commitMsg.split('\n')[0].substring(0, 120);
+
+          // Get changed files
+          let changed = '';
+          try { changed = execSync('git diff --name-only HEAD~1 HEAD').toString(); } catch(e) {}
+          const fileCount = changed.split('\n').filter(Boolean).length;
+
+          // Detect categories
+          let cats = '';
+          if (/components|page\.|layout\.|\.css/.test(changed)) cats += '🎨 UI ';
+          if (/api\/|webhook|route\.ts/.test(changed)) cats += '⚙️ API ';
+          if (/lib\/|utils|constants/.test(changed)) cats += '📦 Core ';
+          if (/\.md|docs/.test(changed)) cats += '📝 Docs ';
+          if (!cats) cats = '🔧 ';
+
+          const tweet = '🚀 Review Reply AI アップデート\n\n' +
+            shortMsg + '\n\n' +
+            cats.trim() + ' | ' + fileCount + ' files changed\n\n' +
+            'https://review-reply.kando1.com/ja\n' +
+            '#buildinpublic #SaaS #AI';
+
+          // OAuth 1.0a
+          function pe(s) { return encodeURIComponent(s).replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase()); }
+          function oA(m, url) {
+            const o = { oauth_consumer_key: CK, oauth_nonce: crypto.randomBytes(16).toString('hex'), oauth_signature_method: 'HMAC-SHA1', oauth_timestamp: Math.floor(Date.now()/1000).toString(), oauth_token: at, oauth_version: '1.0' };
+            const ps = Object.keys(o).sort().map(k => pe(k)+'='+pe(o[k])).join('&');
+            o.oauth_signature = crypto.createHmac('sha1', pe(CS)+'&'+pe(ats)).update(m+'&'+pe(url)+'&'+pe(ps)).digest('base64');
+            return 'OAuth ' + Object.keys(o).sort().map(k => pe(k)+'=\"'+pe(o[k])+'\"').join(', ');
+          }
+
+          const body = JSON.stringify({ text: tweet });
+          const url = 'https://api.x.com/2/tweets';
+          const req = https.request(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': oA('POST', url) }
+          }, res => {
+            let d = '';
+            res.on('data', c => d += c);
+            res.on('end', () => {
+              console.log('Status:', res.statusCode);
+              console.log(d);
+              if (res.statusCode !== 201) {
+                console.log('Tweet failed but not blocking deploy');
+              }
+            });
+          });
+          req.write(body);
+          req.end();
+          "

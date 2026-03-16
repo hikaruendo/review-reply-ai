@@ -1,0 +1,72 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg-gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(252 208) rotate(43.7) scale(1010.5 932.8)">
+      <stop stop-color="#223756"/>
+      <stop offset="0.34" stop-color="#16253A"/>
+      <stop offset="1" stop-color="#0B1320"/>
+    </radialGradient>
+    <radialGradient id="badge-gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(384 350) rotate(50.2) scale(525.3)">
+      <stop stop-color="#FFFDFC"/>
+      <stop offset="0.68" stop-color="#FFF5E9"/>
+      <stop offset="1" stop-color="#F2E4D2"/>
+    </radialGradient>
+    <linearGradient id="ring-gradient" x1="204" y1="208" x2="786" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8DAB6"/>
+      <stop offset="0.42" stop-color="#F2684A"/>
+      <stop offset="1" stop-color="#D8EFE1"/>
+    </linearGradient>
+    <filter id="badge-shadow" x="132" y="148" width="760" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="28"/>
+      <feGaussianBlur stdDeviation="34"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0196078 0 0 0 0 0.0470588 0 0 0 0 0.0941176 0 0 0 0.28 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+    </filter>
+    <filter id="soft-glow" x="38" y="18" width="960" height="988" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="24" result="effect1_foregroundBlur_0_1"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg-gradient)"/>
+
+  <g filter="url(#soft-glow)">
+    <circle cx="196" cy="174" r="188" fill="#F2684A" fill-opacity="0.16"/>
+    <circle cx="854" cy="154" r="162" fill="#D7EFE0" fill-opacity="0.38"/>
+    <circle cx="862" cy="838" r="214" fill="#F5EFE6" fill-opacity="0.08"/>
+    <circle cx="174" cy="854" r="148" fill="#F5EFE6" fill-opacity="0.06"/>
+  </g>
+
+  <circle cx="512" cy="512" r="388" stroke="url(#ring-gradient)" stroke-width="2.5" stroke-opacity="0.32"/>
+  <circle cx="512" cy="512" r="350" stroke="#F5EFE6" stroke-opacity="0.14" stroke-width="1.5"/>
+  <path d="M278 292C343 235 424 204 512 204" stroke="#F5EFE6" stroke-opacity="0.28" stroke-width="12" stroke-linecap="round"/>
+  <path d="M712 764C647 819 566 850 480 850" stroke="#F2684A" stroke-opacity="0.7" stroke-width="12" stroke-linecap="round"/>
+
+  <g filter="url(#badge-shadow)">
+    <circle cx="512" cy="512" r="304" fill="#0F1B2D"/>
+    <circle cx="512" cy="512" r="286" fill="url(#badge-gradient)"/>
+  </g>
+
+  <g transform="translate(512 502) rotate(-7)">
+    <path d="M-206 -142H156C207 -142 248 -101 248 -50V108C248 159 207 200 156 200H10L-82 292V200H-206C-257 200 -298 159 -298 108V-50C-298 -101 -257 -142 -206 -142Z" fill="#F2684A"/>
+    <path d="M-184 -114H152C188 -114 218 -84 218 -48V100C218 136 188 166 152 166H-6L-54 214V166H-184C-220 166 -250 136 -250 100V-48C-250 -84 -220 -114 -184 -114Z" fill="#F2684A"/>
+    <text x="-18" y="58" text-anchor="middle" font-family="'Avenir Next', 'Segoe UI', sans-serif" font-size="210" font-weight="800" letter-spacing="-12" fill="#122033">AI</text>
+  </g>
+
+  <g transform="translate(636 652) rotate(8)">
+    <path d="M-112 -82H124C164 -82 196 -50 196 -10V66C196 106 164 138 124 138H18L-40 196V138H-112C-152 138 -184 106 -184 66V-10C-184 -50 -152 -82 -112 -82Z" fill="#FFF8EE"/>
+    <circle cx="-44" cy="28" r="18" fill="#122033" fill-opacity="0.9"/>
+    <circle cx="8" cy="28" r="18" fill="#122033" fill-opacity="0.9"/>
+    <circle cx="60" cy="28" r="18" fill="#122033" fill-opacity="0.9"/>
+  </g>
+
+  <g transform="translate(726 314)">
+    <path d="M0 -46L12 -12L46 0L12 12L0 46L-12 12L-46 0L-12 -12L0 -46Z" fill="#F5EFE6" fill-opacity="0.94"/>
+    <path d="M-84 24L-76 46L-54 54L-76 62L-84 84L-92 62L-114 54L-92 46L-84 24Z" fill="#D7EFE0" fill-opacity="0.92"/>
+  </g>
+
+  <circle cx="512" cy="512" r="286" stroke="#FFFFFF" stroke-opacity="0.24" stroke-width="1.5"/>
+</svg>
