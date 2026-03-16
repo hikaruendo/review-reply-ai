@@ -46,10 +46,10 @@ export default async function ContactPage({ params }: ContactPageProps) {
                     以下のメールアドレスまでご連絡ください：
                   </p>
                   <a
-                    href="mailto:support@kando1.com"
+                    href="mailto:contact@kando1.com"
                     className="text-coral font-semibold hover:underline"
                   >
-                    support@kando1.com
+                    contact@kando1.com
                   </a>
                 </div>
 
@@ -99,10 +99,10 @@ export default async function ContactPage({ params }: ContactPageProps) {
                     Please contact us at:
                   </p>
                   <a
-                    href="mailto:support@kando1.com"
+                    href="mailto:contact@kando1.com"
                     className="text-coral font-semibold hover:underline"
                   >
-                    support@kando1.com
+                    contact@kando1.com
                   </a>
                 </div>
 
