@@ -16,11 +16,16 @@ import {
 import { type Locale, getDictionary } from "@/lib/i18n/dictionaries";
 
 const INDUSTRY_LABELS: Record<Industry, Record<Locale, string>> = {
-  Dental: { ja: "歯科医院", en: "Dental" },
+  Dental: { ja: "歯科医院", en: "Dental Clinic" },
   Restaurant: { ja: "レストラン", en: "Restaurant" },
-  Salon: { ja: "美容院・サロン", en: "Salon" },
+  Salon: { ja: "美容院・サロン", en: "Beauty Salon" },
+  Hotel: { ja: "ホテル・旅館", en: "Hotel" },
+  Chiropractic: { ja: "整体・整骨院", en: "Chiropractic" },
+  "Medical Clinic": { ja: "クリニック（内科等）", en: "Medical Clinic" },
+  "Real Estate": { ja: "不動産", en: "Real Estate" },
+  "Fitness Gym": { ja: "フィットネスジム", en: "Fitness Gym" },
   "Auto Repair": { ja: "自動車整備", en: "Auto Repair" },
-  Other: { ja: "その他", en: "Other" },
+  "Pet Grooming": { ja: "ペットサロン", en: "Pet Grooming" },
 };
 
 const TONE_LABELS: Record<ReplyTone, Record<Locale, string>> = {
