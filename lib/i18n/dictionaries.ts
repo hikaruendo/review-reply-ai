@@ -110,10 +110,10 @@ export type Dictionary = {
 export const dictionaries: Record<Locale, Dictionary> = {
   ja: {
     hero: {
-      badge: "歯科医院向けに最適化",
+      badge: "10業種対応",
       headline: "口コミ返信、もう悩まない。AIが数秒で作成します。",
       description:
-        "受付スタッフや院長先生に、すぐに使える返信案を提供。歯科医院から始まり、レストラン、美容院など、あらゆる地域ビジネスに対応予定。",
+        "歯科医院・レストラン・美容院・ホテルなど10業種に対応。口コミを貼り付けるだけで、すぐに使える返信案をAIが生成します。",
       ctaPrimary: "無料で試す — サインアップ不要",
       ctaSecondary: "料金を見る",
     },
@@ -136,10 +136,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "認証、保存機能、プランフィールドはすでに実装済み。MVPから成長しても書き直し不要です。",
     },
     generator: {
-      badge: "フェーズ0 MVP",
+      badge: "AIジェネレーター",
       title: "1つの口コミから3つの返信案を生成",
       description:
-        "歯科医院向けに最適化し、レストラン、サロン、自動車整備など、他の地域ビジネスにも対応予定。",
+        "10業種に対応。業種とトーンを選んで、口コミを貼り付けるだけ。",
       reviewTextLabel: "口コミ本文",
       reviewTextPlaceholder: "口コミをここに貼り付けてください...",
       industryLabel: "業種",
@@ -214,10 +214,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
   },
   en: {
     hero: {
-      badge: "Dental clinics first",
+      badge: "10 industries supported",
       headline: "Stop struggling with review replies. AI writes them in seconds.",
       description:
-        "Give your front desk or practice manager an instant starting point for thoughtful, on-brand review responses. Start with dental clinics now, then expand into every local service category.",
+        "Dental clinics, restaurants, salons, hotels, and more. Paste a review and get three professional reply options instantly.",
       ctaPrimary: "Try Free — No signup required",
       ctaSecondary: "See pricing",
     },
@@ -240,10 +240,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "Auth, persistence, and plan fields are scaffolded so the MVP can grow without a rewrite.",
     },
     generator: {
-      badge: "Phase 0 MVP",
+      badge: "AI Generator",
       title: "Turn one review into three polished reply options",
       description:
-        "Built for dental clinics first, and ready for restaurants, salons, auto repair shops, and other local service businesses.",
+        "Supports 10 industries. Pick your industry and tone, paste a review, and get three reply options instantly.",
       reviewTextLabel: "Review text",
       reviewTextPlaceholder: "Paste the customer review here...",
       industryLabel: "Industry",
