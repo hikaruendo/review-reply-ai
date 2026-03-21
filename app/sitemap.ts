@@ -11,10 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const entries: MetadataRoute.Sitemap = [];
 
-  // Add language home pages
+  // Add language home pages (use /ja and /en, not root / which redirects)
   for (const lang of locales) {
     entries.push({
-      url: lang === "ja" ? baseUrl : `${baseUrl}/en`,
+      url: `${baseUrl}/${lang}`,
       lastModified,
       changeFrequency: "weekly",
       priority: 1,
