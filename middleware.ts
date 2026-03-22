@@ -8,6 +8,20 @@ export async function middleware(request: NextRequest) {
     request
   });
 
+  // Skip Supabase auth for public/SEO pages to allow static caching
+  const pathname = request.nextUrl.pathname;
+  const isPublicPage =
+    pathname === "/" ||
+    (
+      /^\/(ja|en)(\/|$)/.test(pathname) &&
+      !pathname.startsWith("/auth") &&
+      !pathname.startsWith("/api/")
+    );
+
+  if (isPublicPage) {
+    return response;
+  }
+
   if (!isSupabaseConfigured()) {
     return response;
   }

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { SiteHeader } from "@/components/site-header";
+import { SiteHeaderStatic } from "@/components/site-header-static";
 import { Footer } from "@/components/footer";
 import { ReviewGenerator } from "@/components/review-generator";
 import { type Locale, getDictionary, locales } from "@/lib/i18n/dictionaries";
@@ -10,8 +10,6 @@ import { type IndustrySlug, getAllIndustries, getIndustryName } from "@/lib/i18n
 import { type ScenarioSlug, getAllScenarios, getScenarioName } from "@/lib/i18n/scenarios";
 import { getSEOContent } from "@/lib/seo/content";
 import { siteConfig } from "@/lib/site";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { getCurrentUser } from "@/lib/supabase/server";
 
 type Props = {
   params: {
@@ -88,8 +86,6 @@ export default async function SEOPage({ params }: Props) {
 
   const locale = lang as Locale;
   const dict = getDictionary(locale);
-  const user = await getCurrentUser();
-  const authConfigured = isSupabaseConfigured();
 
   const content = getSEOContent(industry as IndustrySlug, scenario as ScenarioSlug, locale);
 
@@ -126,7 +122,7 @@ export default async function SEOPage({ params }: Props) {
       />
 
       <main className="pb-16">
-        <SiteHeader authConfigured={authConfigured} userEmail={user?.email} lang={locale} />
+        <SiteHeaderStatic lang={locale} />
 
         {/* Hero Section */}
         <section className="section-shell pt-12">
@@ -214,7 +210,7 @@ export default async function SEOPage({ params }: Props) {
                 : "Paste your review below and get 3 AI-generated reply options instantly."}
             </p>
           </div>
-          <ReviewGenerator isSignedIn={Boolean(user)} lang={locale} />
+          <ReviewGenerator isSignedIn={false} lang={locale} />
         </section>
 
         {/* Related Links */}
