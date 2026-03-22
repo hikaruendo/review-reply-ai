@@ -7,11 +7,15 @@ type CheckoutSuccessBannerProps = {
 };
 
 export function CheckoutSuccessBanner({ message }: CheckoutSuccessBannerProps) {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(false), 8000);
-    return () => clearTimeout(timer);
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") === "success") {
+      setVisible(true);
+      const timer = setTimeout(() => setVisible(false), 8000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   if (!visible) return null;

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const dict = getDictionary(lang);
   const baseUrl = siteConfig.url;
-  const canonicalUrl = lang === "ja" ? baseUrl : `${baseUrl}/en`;
+  const canonicalUrl = `${baseUrl}/${lang}`;
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        ja: baseUrl,
+        ja: `${baseUrl}/ja`,
         en: `${baseUrl}/en`,
       },
     },
